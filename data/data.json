@@ -1,0 +1,22 @@
+{
+	"meta": {
+		"site": {
+			"title": "Zee Agency",
+			"description": "",
+			"author": "Zee Agency"
+		},
+
+		"page": {
+			"title": "Page par défaut",
+			"description": ""
+		},
+
+		"facebook": {
+			"image": "/img/zee/og-image.png"
+		},
+		"twitter": {
+			"user_id": "@zeeagency",
+			"image": "/img/zee/og-image.png"
+		}
+	}
+}

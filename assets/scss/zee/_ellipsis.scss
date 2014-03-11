@@ -1,0 +1,34 @@
+@mixin ellipsis(
+	$height: 1em,
+	$width: 2.5em,
+	$line-height: 1em,
+	$padding-right: 5px
+) {
+	&:before {
+		content: '';
+		float: left;
+		width: 5px;
+		height: $height;
+	}
+	&:after {
+		content: "\02026";
+		@include box-sizing(content-box);
+		float: right;
+		position: relative;
+		top: -$line-height;
+		left: 100%;
+		width: $width;
+		margin-left: -$width;
+		padding-right: $padding-right;
+		text-align: right;
+		// @include background-size(100% 100%);
+		background: white;
+		@include background(linear-gradient(left, rgba(white, 0), rgba(white, 1) 20%, rgba(white, 1) 100%));
+		@content;
+	}
+	& > *:first-child {
+		float: right;
+		width: 100%;
+		margin-left: -5px;
+	}
+}

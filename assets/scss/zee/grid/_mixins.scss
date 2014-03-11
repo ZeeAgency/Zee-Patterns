@@ -1,0 +1,57 @@
+@mixin create-grid(
+	$name: 'grid',
+	$columns: 12,
+	$gutter-width: 0%,
+	$gutter-out: 'normal',
+	$width: 100%,
+	$cell-name: 'cell',
+
+	$margin-v: false,
+	$precision: 10
+) {
+
+	%#{$name}-#{$cell-name} {
+		float: left;
+		margin-left: grid-floor($gutter-width / 2, $precision);
+		margin-right: grid-floor($gutter-width / 2, $precision);
+
+		@if $margin-v {
+			margin-top: grid-floor($gutter-width / 2, $precision);
+			margin-bottom: grid-floor($gutter-width / 2, $precision);
+		}
+	}
+
+	%#{$name} {
+		@include clearfix;
+
+		@if $gutter-out == 'stick' {
+			margin-left: grid-floor(-$gutter-width / 2, $precision);
+			margin-right: grid-floor(-$gutter-width / 2, $precision);
+
+			@if $margin-v {
+				margin-top: grid-floor(-$gutter-width / 2, $precision);
+				margin-bottom: grid-floor(-$gutter-width / 2, $precision);
+			}
+		}
+
+		@if $gutter-out == 'simple' {
+			margin-left: grid-floor($gutter-width / 2, $precision);
+			margin-right: grid-floor($gutter-width / 2, $precision);
+
+			@if $margin-v {
+				margin-top: grid-floor($gutter-width / 2, $precision);
+				margin-bottom: grid-floor($gutter-width / 2, $precision);
+			}
+		}
+	}
+
+	@for $i from 1 through $columns {
+
+		$cell-width: grid-col-width($i, $columns, $gutter-width, $width);
+
+		%#{$name}-#{$cell-name}-#{$i} {
+			@extend %#{$name}-#{$cell-name};
+			width: grid-floor($cell-width, $precision);
+		}
+	}
+}

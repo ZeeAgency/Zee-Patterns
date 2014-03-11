@@ -1,0 +1,15 @@
+
+
+@function grid-floor($num, $precision: 10) {
+	$factor: pow(10, $precision);
+	@return floor($num * $factor) / $factor;
+}
+
+@function grid-col-width(
+	$col: 1,
+	$columns: 12,
+	$gutter-width: 2%,
+	$grid-width: 100%
+) {
+	@return ($grid-width / $columns * $col) - $gutter-width;
+}

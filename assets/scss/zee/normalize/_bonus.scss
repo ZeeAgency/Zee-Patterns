@@ -1,0 +1,37 @@
+@if $zee-output-normalize {
+	
+// some stuffs from inuit.css https://github.com/csswizardry/inuit.css
+	
+/**
+ * Give a help cursor to elements that give extra info on `:hover`.
+ */
+abbr[title],
+dfn[title] {
+	cursor: help;
+}
+
+/**
+ * So that `alt` text is visually offset if images don’t load.
+ */
+img {
+	font-style: italic;
+}
+
+/**
+ * Give form elements some cursor interactions...
+ */
+label,
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+input[type="image"],
+button,
+select,
+option {
+	cursor: pointer;
+}
+
+}

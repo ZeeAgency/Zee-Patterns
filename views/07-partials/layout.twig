@@ -1,0 +1,61 @@
+{% set modifiers = [] %}
+
+{% if (
+		(sidebar_left is defined or with_sidebar_left is defined) 
+		and
+		(sidebar_right is defined or with_sidebar_right is defined)
+	) or (
+		(with_both_sidebars is defined)
+	)
+%}
+	{% set modifiers = modifiers|merge(["with-two-sidebars"]) %}
+
+{% else %}
+	{% if sidebar_left is defined or with_sidebar_left is defined %}
+		{% set modifiers = modifiers|merge(["with-sidebar-first"]) %}
+	{% endif %}
+
+	{% if sidebar_right is defined or with_sidebar_right is defined %}
+		{% set modifiers = modifiers|merge(["with-sidebar-second"]) %}
+	{% endif %}
+{% endif %}
+
+{% if with_content_shifted is defined %}
+	{% set modifiers = modifiers|merge(["with-content-shifted"]) %}
+{% endif %}
+
+{% if with_content_white is defined %}
+	{% set modifiers = modifiers|merge(["with-content-white"]) %}
+{% endif %}
+
+<div class="{{ BEM("l-main-wrapper", [], modifiers) }}">
+	<div class="l-container">
+		{% block main_grid %}
+		<div class="row">
+
+			<div class="l-main" id="main-content" role="main">
+				{% block main_content %}
+					{{ main_content|raw }}
+				{% endblock %}
+			</div>
+			
+			{% if sidebar_left is defined or with_sidebar_left %}
+			<div class="l-sidebar l-sidebar--left">
+				{% block sidebar_left %}
+					{{ sidebar_left|raw }}
+				{% endblock %}
+			</div>
+			{% endif %}
+			
+			{% if sidebar_right is defined or with_sidebar_right %}
+			<div class="l-sidebar l-sidebar--right">
+				{% block sidebar_right %}
+					{{ sidebar_right|raw }}
+				{% endblock %}
+			</div>
+			{% endif %}
+		
+		</div>
+		{% endblock %}
+	</div>
+</div>

@@ -1,0 +1,16 @@
+{% extends "partials/list" %}
+
+{# BEMification #}
+{% block list_class			%}{{ BEM(list_class) }}{% endblock %}
+{% block list_item_class	%}{{ BEM(list_item_class, [], ["d" ~ list_iteration, "i" ~ loop.index, item.children|length ? "is-branch", item.url ? "is-leaf"]) }} {% block list_item_state_class %}{% endblock %}{% endblock %}
+{% block list_link_class	%}{{ BEM(list_link_class) }} {{ block("list_item_state_class") }}{% endblock %}
+
+{% set list_level_class = list_level_class|default('unordered-list_level') %}
+
+{% block list_before %}
+<div class="{% block list_level_class %}{{ BEM(list_level_class, [], "d" ~ list_iteration) }}{% endblock %}">
+{% endblock %}
+
+{% block list_after %}
+</div>
+{% endblock %}

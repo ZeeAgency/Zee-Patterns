@@ -1,0 +1,19 @@
+<div class="off-canvas_outer">
+	<div class="off-canvas_inner">
+		{% block content %}{% endblock %}
+		
+		{% if left_menu_id %}
+		<div class="off-canvas_left-menu" id="{{ left_menu_id }}">
+			{% block left_menu %}{% endblock %}
+		</div>
+		{% endif %}
+
+		{% if right_menu_id %}
+		<div class="off-canvas_right-menu" id="{{ right_menu_id }}">
+			{% block right_menu %}{% endblock %}
+		</div>
+		{% endif %}
+
+	</div>
+	<a href="#0" class="off-canvas_close"></a>
+</div>

@@ -1,0 +1,9 @@
+{
+  "name": "zee-patterns",
+  "version": "0.0.1",
+  "description": "Zee Patterns Theme",
+  "base_theme": "patterns",
+  "repository": "",
+  "author": "julien.c@me.com",
+  "license": "BSD"
+}

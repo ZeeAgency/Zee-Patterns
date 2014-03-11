@@ -1,0 +1,114 @@
+{% block document %}
+{% block html %}
+<!doctype html>
+<!--[if lt IE 7 ]>	<html lang="fr-FR" class="no-js lang-fr oldie ie6"> <![endif]-->
+<!--[if IE 7 ]>		<html lang="fr-FR" class="no-js lang-fr oldie ie7"> <![endif]-->
+<!--[if IE 8 ]>		<html lang="fr-FR" class="no-js lang-fr oldie ie8"> <![endif]-->
+<!--[if IE 9 ]>		<html lang="fr-FR" class="no-js lang-fr ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="fr-FR" class="no-js lang-fr"> <!--<![endif]-->
+{% endblock %}
+
+{% block head %}
+<head>
+{% block head_metadata %}
+	<meta charset="utf-8">
+	<title>{{ (meta.page.title ? meta.page.title ~ " | ") ~ meta.site.title }}</title>
+	<meta name="description" content="{{ meta.site.description }}">
+	<meta name="author" content="{{ meta.site.author }}">
+{% endblock %}
+
+{% block head_social %}
+{% block head_social_facebook %}
+	<meta name="og:title" content="{{ meta.page.title|default(meta.site.title) }}" />
+	<meta name="og:site_name" content="{{ meta.site.title }}" />
+	<meta name="og:type" content="website" />
+	<meta name="og:description" content="{{ meta.page.description|default(meta.site.description) }}" />
+	<meta name="og:image" content="{{ meta.page.image|default(assets_dir ~ meta.facebook.image) }}" />
+{% endblock %}
+
+{% block head_social_twitter %}
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="{{ meta.twitter.user_id }}" />
+	<meta name="twitter:title" content="{{ meta.page.title|default(meta.site.title) }}" />
+	<meta name="twitter:description" content="{{ meta.page.description|default(meta.site.description) }}" />
+	<meta name="twitter:image" content="{{ meta.page.image|default(assets_dir ~ meta.twitter.image) }}" />
+{% endblock %}
+{% endblock %}
+
+{% block head_compat %}
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<meta name="msapplication-TileColor" content="#ffffff">
+{% endblock %}
+
+{% block head_icons %}
+	<link rel="icon" type="image/png" href="{{ img_dir }}/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="{{ img_dir }}/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" href="{{ img_dir }}/apple-touch-icon-precomposed.png">
+	<link rel="shortcut icon" href="{{ img_dir }}/apple-touch-icon-precomposed.png">
+	<meta name="msapplication-TileImage" content="{{ img_dir }}/apple-touch-icon-precomposed.png">
+{% endblock %}
+
+{% block stylesheet %}
+{% block stylesheet_default %}
+	<!--[if (gte IE 9) | (IEMobile)]><!-->
+	<link href="{{ assets_dir }}/css/screen.css" rel="stylesheet" type="text/css">
+	<!--<![endif]-->
+{% endblock %}
+
+{% block stylesheet_ie %}
+	<!--[if (lt IE 9) & (!IEMobile)]>
+	<link href="{{ assets_dir }}/css/screen-ie.css" rel="stylesheet" type="text/css">
+	<link href="{{ assets_dir }}/css/print.css" rel="stylesheet" type="text/css" media="print">
+	<![endif]-->
+
+	<!--[if (lt IE 8) & (!IEMobile)]>
+	<link href="{{ assets_dir }}/js/libs/icomoon/ie7.css" rel="stylesheet" type="text/css">
+	<script src="{{ assets_dir }}/js/libs/icomoon/ie7.js"></script>
+	<![endif]-->
+	{# IE8.js # }
+	<!--[if lt IE 8]>
+	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+	<![endif]-->
+	{# #}
+{% endblock %}
+{% endblock %}
+
+{% block head_scripts %}
+	<script src="{{ assets_dir }}/js/libs/modernizr/modernizr.custom.js"></script>
+{% endblock %}
+</head>
+{% endblock %}
+
+<body>
+{% block body %}
+	{{ body|default("<h1>Pattern Kit</h1>")|raw }}
+{% endblock %}
+
+{% block scripts %}
+{% if app.env == 'prod' %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ assets_dir }}/components/jquery/jquery.min.js"><\/script>')</script>
+	<script>var require = requirejs_config = {baseUrl: '{{ assets_dir }}'};</script>
+	<script src="{{ assets_dir }}/components/requirejs/require.js"></script>
+	<script src="{{ assets_dir }}/js/main.js"></script>
+{% else %}
+	<script src="{{ assets_dir }}/components/jquery/jquery.min.js"></script>
+	<script>var require = requirejs_config = {baseUrl: '{{ assets_dir }}', urlArgs: 'bust=' +  (new Date()).getTime()};</script>
+	<script src="{{ assets_dir }}/components/requirejs/require.js"></script>
+	<script src="{{ assets_dir }}/js/config.js"></script>
+	<script>require(['js/main'], function(main) {main();});</script>
+{# # }
+	<script>document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	<script src="//localhost:3000/socket.io/socket.io.js"></script>
+	<script src="//localhost:3001/client/browser-sync-client.min.js"></script>
+{# #}
+{% endif %}
+{% endblock %}
+</body>
+</html>
+{% endblock %}

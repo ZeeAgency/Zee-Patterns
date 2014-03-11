@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="{{ assets_dir }}/css/integration.css" rel="stylesheet" type="text/css" />
+<body class="show-desktop">
+	<div class="toolbar">
+		<a href="#desktop" class="desktop"><i class="icon-screen"></i></a>
+		<a href="#mobile" class="mobile"><i class="icon-mobile"></i></a>
+	</div>
+	<div class="container">
+		{% for page_name, page in pages %}
+		{% if page_name != "index" %}
+		<a class="page" href="../pages/{{ page_name }}.html" target="_blank">
+			<span>{{ page.title }}</span>
+			<div class="desktop"><img src="../../dist/webimm/screenshots/desktop/remote-1400x4000-{{ page_name }}.png" alt="screenshot"/></div>
+			<!-- <div class="mobile"><img src="{{ assets_dir }}/../dist/screenshots/mobile/remote-320x4000-{{ page_name }}.png"/></div> -->
+		</a>
+		{% endif %}
+
+		{% endfor %}
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+	$(function() {
+		$('.toolbar a').on('click', function(e) {
+			e.preventDefault();
+			$('body').toggleClass('show-desktop').toggleClass('show-mobile');
+		});
+		/** /
+		$('.page').on('click', function(e) {
+			e.preventDefault();
+			if($('body.show-mobile').length) {
+				alert('ok');
+				window.open(this.href, "width=320,height=480");
+			}
+		});
+		/**/
+	});
+	</script>
+</body>

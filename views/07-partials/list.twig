@@ -1,0 +1,46 @@
+
+{% set list_class = list_class|default("unordered-list") %}
+{% set list_item_class = list_item_class|default("unordered-list_item") %}
+{% set list_link_class = list_link_class|default("unordered-list_link") %}
+{% set list_iteration = iteration|default(1) %}
+{% set list_depth = list_depth|default(0) %}
+
+{% block list %}
+{% if list_items|length and (list_depth == 0 or list_iteration <= list_depth) %}
+	{% block list_before %}{% endblock %}
+	{% block list_inner %}
+
+	{# UL #}
+	<{{ list_tag|default('ul') }} class="{% block list_class %}{{ list_class }}{% endblock %}">
+		{% for item in list_items %}
+
+		{% block list_item %}
+		{# LI #}
+		<li class="{% block list_item_class %}{{ list_item_class }}{% endblock %}">
+
+			{# A #}
+			{% spaceless %}
+			{% block list_item_link %}
+			<a class="{% block list_link_class %}{{ list_link_class }}{% endblock %}" href="{% block list_link_href %}{{ item.url|default("#") }}{% endblock %}">
+				{% block list_item_link_content %}{{ item.title|raw }}{% endblock %}
+			</a>
+			{% endblock %}
+			{% endspaceless %}
+
+			{# UL ? #}
+			{% block list_item_children %}
+				{% if item.children|length %}
+					{% set list_items = item.children %}
+					{% set list_iteration = list_iteration + 1 %}
+					{{ block('list') }}
+				{% endif %}
+			{% endblock %}
+		</li>
+		{% endblock %}
+		{% endfor %}
+	</{{ list_tag|default('ul') }}>
+	{% endblock %}
+	{% block list_after %}{% endblock %}
+{% endif %}
+{% endblock %}
+
