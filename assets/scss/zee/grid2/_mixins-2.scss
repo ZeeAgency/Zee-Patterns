@@ -85,8 +85,15 @@
 			@if $cells != false {
 				@each $cell-name, $cell-sizes in $cells {
 					$size: grid-nth($cell-sizes, $i);
-					@if $size > 0 {
+					// Smart hide
+					@if $size = 0 {
 						> #{$prefix + $cell-name} {
+							display: none;
+						}
+					}
+					@elseif $size > 0 {
+						> #{$prefix + $cell-name} {
+							display: block;
 							@if $uid {
 								@extend #{$uid + "-" + $bp} !optional;
 							}

@@ -100,6 +100,7 @@
 	<script src="{{ assets_dir }}/components/jquery/jquery.min.js"></script>
 	<script>var require = requirejs_config = {baseUrl: '{{ assets_dir }}', urlArgs: 'bust=' +  (new Date()).getTime()};</script>
 	<script src="{{ assets_dir }}/components/requirejs/require.js"></script>
+	<script>define('jquery', function() {return jQuery; });</script>
 	<script src="{{ assets_dir }}/js/config.js"></script>
 	<script>require(['js/main'], function(main) {main();});</script>
 {# # }
